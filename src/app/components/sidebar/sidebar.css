@@ -1,0 +1,453 @@
+/* ─── Powerload Sidebar ─────────────────────────────────────────────────────── */
+
+.pl-sidebar {
+  --pl-sidebar-w-expanded: 286px;
+  --pl-sidebar-w-collapsed: 78px;
+  --pl-red: #c22339;
+  --pl-red-0: #fbe1e1;
+  --pl-red-active-sub: #fef6f6;
+  --pl-n0: #ffffff;
+  --pl-n50: #f9f9fc;
+  --pl-n200: #ececf4;
+  --pl-n300: #e1e1ec;
+  --pl-n400: #d2d2e1;
+  --pl-n600: #a1a1b9;
+  --pl-n700: #7e7e97;
+  --pl-n800: #55556c;
+  --pl-n900: #2a2a38;
+  --pl-n950: #000000;
+
+  display: flex;
+  flex-direction: column;
+  width: var(--pl-sidebar-w-expanded);
+  min-height: 100%;
+  background: var(--pl-n0);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  transition: width 200ms ease-in-out;
+  flex-shrink: 0;
+}
+
+.pl-sidebar--collapsed {
+  width: var(--pl-sidebar-w-collapsed);
+}
+
+.pl-sidebar__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 16px 0;
+  min-height: 72px;
+  flex-shrink: 0;
+}
+
+.pl-sidebar__nav {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 8px 16px 0;
+  min-height: 0;
+}
+
+.pl-sidebar__nav-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0 24px;
+}
+
+.pl-sidebar__footer {
+  flex-shrink: 0;
+  padding: 8px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Menú principal ───────────────────────────────────────────────────────── */
+
+.pl-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pl-sidebar-menu__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px 10px 6px 8px;
+  border-radius: 14px;
+  transition: background-color 150ms ease;
+  font: inherit;
+  text-align: left;
+  color: var(--pl-n800); /* base color for SVG currentColor inheritance */
+}
+
+.pl-sidebar-menu__trigger:hover {
+  background: var(--pl-n200);
+}
+
+.pl-sidebar-menu__trigger--active {
+  background: var(--pl-red);
+}
+
+.pl-sidebar-menu__trigger--expanded-child {
+  border: 1px solid var(--pl-red-0);
+  background: transparent;
+}
+
+.pl-sidebar-menu__trigger--expanded-child:hover {
+  background: var(--pl-n200);
+}
+
+.pl-sidebar-menu__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pl-sidebar-menu__left--inicio {
+  gap: 12px;
+}
+
+.pl-sidebar-menu__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.pl-sidebar-menu__icon-wrap--padded {
+  padding: 4px;
+  border-radius: 8px;
+  width: auto;
+  height: auto;
+}
+
+.pl-sidebar-menu__trigger--active .pl-sidebar-menu__icon-wrap--padded {
+  background: var(--pl-n0);
+}
+
+.pl-sidebar-menu__label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pl-n800);
+  white-space: nowrap;
+}
+
+.pl-sidebar-menu__trigger--active .pl-sidebar-menu__label {
+  color: var(--pl-n900);
+}
+
+.pl-sidebar-menu__right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pl-sidebar-menu__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--pl-n800);
+  transition: transform 200ms ease;
+}
+
+.pl-sidebar-menu__chevron--open {
+  transform: scaleY(-1);
+}
+
+.pl-sidebar-menu__trigger--active .pl-sidebar-menu__chevron {
+  color: var(--pl-n0);
+}
+
+/* ── Submenús + ramificación ──────────────────────────────────────────────── */
+
+.pl-sidebar-subtree {
+  padding-bottom: 8px;
+}
+
+.pl-sidebar-subtree__list {
+  padding-left: 22px;
+}
+
+.pl-sidebar-subtree__row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.pl-sidebar-subtree__branch-col {
+  width: 20px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-sidebar-subtree__branch-spacer {
+  height: 10px;
+  border-left: 1px solid var(--pl-n200);
+  margin-left: 0;
+}
+
+.pl-sidebar-subtree__row:not(:first-child) .pl-sidebar-subtree__branch-spacer {
+  border-left: 1px solid var(--pl-n200);
+}
+
+.pl-sidebar-subtree__branch-elbow {
+  /* height = half the sub-item min-height (28px / 2 = 14px)            */
+  /* This places border-bottom exactly at the icon's vertical centre.   */
+  /* flex: 1 was removed — it pushed border-bottom to the row bottom.   */
+  height: 14px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--pl-n200);
+  border-bottom: 1px solid var(--pl-n200);
+  border-bottom-left-radius: 8px;
+}
+
+.pl-sidebar-subtree__row--with-connector .pl-sidebar-subtree__branch-col::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--pl-n200);
+}
+
+.pl-sidebar-sub-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 16px 4px 4px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  gap: 4px;
+  transition: background-color 150ms ease;
+  min-width: 0;
+}
+
+.pl-sidebar-sub-item:hover {
+  background: var(--pl-n200);
+}
+
+.pl-sidebar-sub-item__icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-sidebar-sub-item__label {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  color: var(--pl-n700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pl-sidebar-sub-item:not(.pl-sidebar-sub-item--active) .pl-sidebar-sub-item__icon {
+  color: var(--pl-n700);
+}
+
+.pl-sidebar-sub-item--active {
+  background: var(--pl-red-active-sub);
+}
+
+.pl-sidebar-sub-item--active .pl-sidebar-sub-item__label {
+  font-weight: 500;
+  color: var(--pl-red);
+}
+
+.pl-sidebar-sub-item--active .pl-sidebar-sub-item__icon {
+  color: var(--pl-red);
+}
+
+.pl-sidebar-sub-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* ── Línea de continuación vertical para ítems no-últimos ────────────────── */
+/* ANTES: border-left en .row (cubría todo el alto del row, incluido el       */
+/* botón — incorrecto y causaba doble línea con el elbow).                    */
+/* AHORA: ::after en branch-col que ocupa el espacio restante BAJO el elbow,  */
+/* conectando visualmente con el spacer del ítem siguiente.                   */
+.pl-sidebar-subtree__block:not(.pl-sidebar-subtree__block--last)
+  .pl-sidebar-subtree__branch-col::after {
+  content: "";
+  flex: 1;
+  border-left: 1px solid var(--pl-n200);
+}
+
+.pl-sidebar-subtree__block--last .pl-sidebar-subtree__branch-spacer {
+  border-left: 1px solid var(--pl-n200);
+}
+
+.pl-sidebar-menu__trigger--active .pl-sidebar-menu__icon-wrap,
+.pl-sidebar-menu__trigger--active .pl-sidebar-custom-icon {
+  color: var(--pl-red);
+}
+
+.pl-sidebar-menu__trigger--active .pl-sidebar-menu__chevron {
+  color: var(--pl-n0);
+}
+
+/* ── Logo ─────────────────────────────────────────────────────────────────── */
+
+.pl-sidebar__logo-img {
+  display: block;
+  width: auto;
+  max-width: 240px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.pl-sidebar__logo-img--collapsed {
+  max-width: 37px;
+  height: 22px;
+}
+
+/* ── Badge numérico ───────────────────────────────────────────────────────── */
+
+.pl-sidebar-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pl-sidebar-badge--neutral {
+  background: var(--pl-n50);
+  color: var(--pl-n800);
+  border: 1px solid var(--pl-n300);
+}
+
+.pl-sidebar-badge--primary {
+  background: var(--pl-red);
+  color: var(--pl-n0);
+  border: 1px solid var(--pl-red);
+}
+
+.pl-sidebar-badge--dark {
+  background: var(--pl-n800);
+  color: var(--pl-n0);
+  border: 1px solid var(--pl-n800);
+}
+
+/* ── Icono personalizado (inline SVG) ─────────────────────────────────────── */
+/*
+ * Los SVGs se inyectan inline via dangerouslySetInnerHTML en SidebarCustomIcon.
+ * Esto resuelve clip-path/defs internos y permite heredar color vía currentColor.
+ * Ya no se usa mask-image / background-color: currentColor.
+ */
+
+.pl-sidebar-custom-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Colapsado: solo iconos ───────────────────────────────────────────────── */
+
+.pl-sidebar--collapsed .pl-sidebar-menu__label,
+.pl-sidebar--collapsed .pl-sidebar-menu__chevron,
+.pl-sidebar--collapsed .pl-sidebar-subtree,
+.pl-sidebar--collapsed .pl-sidebar-menu__right .pl-sidebar-badge,
+.pl-sidebar--collapsed .pl-sidebar__footer .pl-sidebar-close__label {
+  display: none;
+}
+
+.pl-sidebar--collapsed .pl-sidebar-menu__trigger {
+  justify-content: center;
+  padding: 6px;
+}
+
+.pl-sidebar--collapsed .pl-sidebar-menu__left {
+  justify-content: center;
+}
+
+.pl-sidebar--collapsed .pl-sidebar-close {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  justify-content: center;
+}
+
+.pl-sidebar--collapsed .pl-sidebar__logo-text--full {
+  display: none;
+}
+
+.pl-sidebar--collapsed .pl-sidebar__logo-text--short {
+  display: block;
+}
+
+/* ── Cerrar menú ──────────────────────────────────────────────────────────── */
+
+.pl-sidebar-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  padding: 8px 20px;
+  border: 1.5px solid var(--pl-n400);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--pl-n600);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.pl-sidebar-close:hover {
+  background: var(--pl-n50);
+  border-color: var(--pl-n500, #bdbdd1);
+}
+
+.pl-sidebar-close__icon {
+  flex-shrink: 0;
+  color: var(--pl-n600);
+}
+
+.pl-sidebar-primary-action {
+  width: 100%;
+}

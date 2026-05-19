@@ -8,6 +8,9 @@ import { TagCategory, TagCategoryVariant } from "./components/TagCategory";
 import { BadgeCount } from "./components/BadgeCount";
 import { PowerloadIconLibrary } from "./components/PowerloadIconLibrary";
 import { CheckboxStep } from "./components/CheckboxStep";
+import { VehicleSelectGuide } from "./components/VehicleSelectGuide";
+import { SelectGuide } from "./components/SelectGuide";
+import { SidebarGuide } from "./components/sidebar";
 import { Plus, Zap, Search, Settings, ArrowRight, ChevronRight, Bell, CheckCircle, AlertTriangle, XCircle, Info, Circle, Star, Truck, Clock, Package, Zap as ZapIcon, Layers, Tag, Map, BarChart2, FileText, Repeat, ShieldCheck, Flame, Globe } from "lucide-react";
 
 // ─── Design tokens (mirrored for App use) ────────────────────────────────────
@@ -1399,6 +1402,48 @@ export default function App() {
             desc="Componente dual: funciona como checkbox interactivo y como indicador de paso en flujos. Dos formas (circle · square), 5 estados, 3 tallas."
           />
           <CheckboxStepShowcase />
+        </Card>
+
+        {/* ══════════════════════════════════════════════════════════
+            SIDEBAR / NAVEGACIÓN
+        ══════════════════════════════════════════════════════════ */}
+        <Card style={{ marginBottom: "48px" }}>
+          <CardHeader
+            badge="Navegación"
+            badgeFg="#FFFFFF"
+            badgeBg="#C22339"
+            title="Sidebar — navegación por tipo de usuario"
+            desc="Menús y submenús según Figma (transportista, cargador, admin, operador con perfil). Estados default, hover y activo; ramificación curva; iconos en assets/iconos-personalizados."
+          />
+          <SidebarGuide />
+        </Card>
+
+        {/* ══════════════════════════════════════════════════════════
+            INPUT / VEHICLE SELECT
+        ══════════════════════════════════════════════════════════ */}
+        <Card style={{ marginBottom: "48px" }}>
+          <CardHeader
+            badge="Input"
+            badgeFg="#FFFFFF"
+            badgeBg="#C22339"
+            title="VehicleSelect — tipo de vehículo"
+            desc="Dropdown 40px de alto con ilustraciones Vehicle/SVG (#000000), búsqueda, modo single/multi, estados de trigger y filas según guía Powerload. Genérico 18×18 en vacío; siluetas ~53×24 en opciones y valor seleccionado."
+          />
+          <VehicleSelectGuide />
+        </Card>
+
+        {/* ══════════════════════════════════════════════════════════
+            INPUT / SELECT (GENERAL)
+        ══════════════════════════════════════════════════════════ */}
+        <Card style={{ marginBottom: "48px" }}>
+          <CardHeader
+            badge="Input"
+            badgeFg="#55556C"
+            badgeBg="#ECECF4"
+            title="Select — uso general"
+            desc="Trigger 48px · borde neutral-400 · íconos outline (Lucide). Modo single (check a la derecha) y multi (CheckboxStep 16px + chips Tag/Category + overflow “+N más”). Distinto de VehicleSelect (40px + siluetas SVG)."
+          />
+          <SelectGuide />
         </Card>
 
         {/* ══════════════════════════════════════════════════════════

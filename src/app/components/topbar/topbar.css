@@ -1,0 +1,238 @@
+/* ─── Powerload Topbar ───────────────────────────────────────────────────────
+   Variables (heredadas del scope de la app; se definen aquí como fallbacks).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.pl-topbar {
+  --pl-topbar-h: 60px;
+  --pl-red: #c22339;
+  --pl-n0: #ffffff;
+  --pl-n50: #f9f9fc;
+  --pl-n200: #ececf4;
+  --pl-n400: #d2d2e1;
+  --pl-n600: #a1a1b9;
+  --pl-n700: #7e7e97;
+  --pl-n800: #55556c;
+  --pl-n900: #2a2a38;
+
+  display: flex;
+  align-items: center;
+  height: var(--pl-topbar-h);
+  padding: 0 20px 0 24px;
+  background: var(--pl-n0);
+  border-bottom: 1px solid var(--pl-n200);
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Hamburgesa (sólo mobile / tablet) ──────────────────────────────────────── */
+
+.pl-topbar__hamburger {
+  display: none; /* oculto en desktop */
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: var(--pl-n800);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 150ms ease;
+}
+
+.pl-topbar__hamburger:hover {
+  background: var(--pl-n200);
+}
+
+/* ── Logo mobile (sólo <1024px) ─────────────────────────────────────────────── */
+
+.pl-topbar__logo-mobile {
+  display: none;
+  flex-shrink: 0;
+}
+
+.pl-topbar__logo-mobile img {
+  height: 28px;
+  width: auto;
+}
+
+/* ── Breadcrumb / título ─────────────────────────────────────────────────────── */
+
+.pl-topbar__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.pl-topbar__bc-home {
+  display: flex;
+  align-items: center;
+  color: var(--pl-n600);
+  flex-shrink: 0;
+}
+
+.pl-topbar__bc-sep {
+  display: flex;
+  align-items: center;
+  color: var(--pl-n400);
+  flex-shrink: 0;
+}
+
+.pl-topbar__bc-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--pl-n700);
+}
+
+.pl-topbar__bc-group {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--pl-n700);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pl-topbar__bc-current {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pl-n900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Acciones derecha ────────────────────────────────────────────────────────── */
+
+.pl-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Botón icono genérico (campana, etc.) */
+.pl-topbar__action-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  border-radius: 9px;
+  color: var(--pl-n700);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.pl-topbar__action-btn:hover {
+  background: var(--pl-n200);
+  color: var(--pl-n900);
+}
+
+/* Badge de notificación */
+.pl-topbar__notif-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  background: var(--pl-red);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 16px;
+  border-radius: 9999px;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Avatar */
+.pl-topbar__avatar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--pl-n400);
+  border-radius: 9999px;
+  background: var(--pl-n50);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 150ms ease;
+}
+
+.pl-topbar__avatar-btn:hover {
+  border-color: var(--pl-n600);
+}
+
+.pl-topbar__avatar-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--pl-n200);
+  color: var(--pl-n800);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.pl-topbar__avatar-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Responsive: mobile / tablet (<1024px) ──────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .pl-topbar {
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  /* Mostrar hamburgesa */
+  .pl-topbar__hamburger {
+    display: flex;
+  }
+
+  /* Mostrar logo mobile */
+  .pl-topbar__logo-mobile {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Reducir/ocultar breadcrumb en mobile para dejar espacio al logo */
+  .pl-topbar__breadcrumb {
+    display: none;
+  }
+
+  /* En tablet (≥ 640px) mostrar el breadcrumb simplificado (solo título) */
+  @media (min-width: 640px) {
+    .pl-topbar__breadcrumb {
+      display: flex;
+    }
+
+    /* En mobile/tablet siempre mostramos sólo el título (como en sidebar expandido) */
+    .pl-topbar__bc-home,
+    .pl-topbar__bc-sep,
+    .pl-topbar__bc-group {
+      display: none;
+    }
+  }
+}
