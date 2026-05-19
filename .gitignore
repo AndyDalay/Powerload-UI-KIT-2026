@@ -1,18 +1,9 @@
-```
 # Dependencies
 node_modules/
 
 # Build outputs
 dist/
 build/
-*.js
-*.jsx
-*.ts
-*.tsx
-*.css
-*.scss
-*.sass
-*.less
 *.map
 
 # Logs and temp files
